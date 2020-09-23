@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const user = {
+const user = [{
     name: 'Tanmay',
-    username: 'Tanmay3610'
-}
+    username: 'Tanmay3610',
+    password: 'Tanmay',
+}]
 
-const loggedStatus = false;
+
+const loggedUserId = -1;
 
 const UserContext = React.createContext();
 
 export const UserProvider = ({children}) => {
-    return (<UserContext.Provider value = {[user, loggedStatus]}>
+    const [loggedStatus, changeLoggedStatus] = useState(false);
+    const [loggedUserId, changeLoggedUserID] = useState(-1);
+    return (<UserContext.Provider value = {[user, changeLoggedStatus, loggedUserId, changeLoggedUserID]}>
                 {children}
             </UserContext.Provider>);
 }

@@ -7,13 +7,15 @@ import SignupScreen from './src/screens/SignupScreen'
 import DoctorProfileScreen from './src/screens/DoctorProfileScreen'
 import MedicineScreen from './src/screens/MedicineScreen'
 import {UserProvider} from './src/context/UserContext';
+import PatientProfile from './src/screens/PatientProfile';
 
 const navigator = createStackNavigator({
     Login: LoginScreen,
     Home: HomeScreen,
     Signup: SignupScreen,
     DoctorProfile: DoctorProfileScreen,
-    Medicine: MedicineScreen
+    Medicine: MedicineScreen,
+    PatientProfile: PatientProfile
 },{
     initialRouteName: 'Home',
     defaultNavigationOptions: {

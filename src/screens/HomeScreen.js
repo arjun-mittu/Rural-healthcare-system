@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Text, View, StyleSheet, TextInput, Picker, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import Style from '../Styles';
 import { AntDesign } from '@expo/vector-icons';
+import UserContext from "../context/UserContext";
 
 const HomeScreen = props => {
+    const value = useContext(UserContext);
     const [pickerValue, changePickerValue] = useState('');
+
     return (
         <View style={Style.background}>
             <Text style={Style.subHeading}> About </Text>
@@ -40,6 +42,5 @@ const HomeScreen = props => {
         </View>
     )
 }
-
 
 export default HomeScreen;
