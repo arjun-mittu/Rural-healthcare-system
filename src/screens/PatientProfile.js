@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StatusBar, Text, View, Button,TouchableOpacity, StyleSheet} from 'react-native';
+import {StatusBar, Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {Context as AuthContext} from "../context/AuthContext";
 import Style from "../Styles";
 import Separator from "../components/Separator";
@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import {CheckBoxDataActive, CheckBoxDataPassive} from "../components/CheckBoxData";
+import {BottomNavigator, BotttomNavigatorWithoutBorder} from "../components/BottomNavigator";
 
 const SYMBOL_COLOR = 'rgb(3, 184, 234)';
 const TEXT_COLOR = 'white';
@@ -19,6 +20,13 @@ const PatientProfile = props => {
         getUserInfo()
     }, [])
 
+    const redirectToSearchMedicineScreen = () => {
+        props.navigation.navigate('Medicine');
+    }
+
+    const redirectToSearchDoctorScreen = () => {
+        props.navigation.navigate('FindDoctor');
+    }
     return(
         <View style = {Style.background}>
             <StatusBar  barStyle="light-content" backgroundColor="transparent" translucent={true} />
@@ -27,8 +35,8 @@ const PatientProfile = props => {
                     <View style = {localStyle.blocks}>
                     <View style = {{flexDirection: 'row'}}>
                         <View style = {{flex: 1}} />
-                        <TouchableOpacity onPress = {signout}>
-                            <SimpleLineIcons style = {{textAlign: "right"}} name="logout" size={24} color={SYMBOL_COLOR} />
+                        <TouchableOpacity onPress = {() => props.navigation.navigate('EditPatientProfile')}>
+                            <Entypo name="edit" size={25} color={SYMBOL_COLOR} />
                         </TouchableOpacity>
                     </View>
                     <View style={{height: 200, justifyContent: 'center'}}>
@@ -79,8 +87,8 @@ const PatientProfile = props => {
                         <Text style = {{color: TEXT_COLOR}}>{state.userInfo[0].bloodGroup}</Text>
                     </View>
                     <View style = {{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                        <Fontisto style = {{marginHorizontal: 15}} name="blood-drop" size={25} color={SYMBOL_COLOR} />
-                        <Text style = {{color: TEXT_COLOR}}>{state.userInfo[0].bloodGroup}</Text>
+                        <MaterialCommunityIcons style = {{marginHorizontal: 15}} name="face-agent" size={25} color= {SYMBOL_COLOR} />
+                        <Text style = {{color: TEXT_COLOR}}>{state.userInfo[0].age} yrs old</Text>
                     </View>
                 </View>)
             : null}
@@ -93,20 +101,35 @@ const PatientProfile = props => {
                     < View style = {{flexDirection: 'row'}}>
                         {state.userInfo.diabitic === 'Yes' ?
                             (<CheckBoxDataActive data = 'Diabetes'/>) : (<CheckBoxDataPassive data = 'Diabetes'/>)}
-                        {state.userInfo.highBloodPressure === 'Yes' ?
+                        {state.userInfo.highBloodPressure == "Yes" ?
                             (<CheckBoxDataActive data = 'High BP'/>) : (<CheckBoxDataPassive data = 'High BP'/>)}
                     </View>
                         <View style ={{width : '100%', height: 10}}/>
                         < View style = {{flexDirection: 'row', marginTop: 15}}>
-                            {state.userInfo.currentUnderDiagnosis === 'Yes' ?
+                            {state.userInfo.currentUnderDiagnosis == "Yes" ?
                                 (<CheckBoxDataActive data = 'Under Diagnosis'/>) : (<CheckBoxDataPassive data = 'Under Diagnosis'/>)}
 
                             {state.userInfo.sugar === "Yes" ?
                                 (<CheckBoxDataActive data = 'Sugar'/>) : (<CheckBoxDataPassive data = 'Sugar'/> )}
                         </View>
-
-                    </View>)
+                    </View>
+                  )
                 : null}
+
+
+            {state.userInfo ? (
+                      <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0 }}>
+                        <View style = {{flexDirection: 'row'}}>
+
+                            <BotttomNavigatorWithoutBorder callBack = {signout} symbolName = 'logout' text = "Logout" />
+
+                            <BotttomNavigatorWithoutBorder callBack = {redirectToSearchMedicineScreen} symbolName = 'search1' text = "Medicine" />
+
+                            <BotttomNavigatorWithoutBorder callBack = {redirectToSearchDoctorScreen} symbolName = 'search1' text = "Doctor" />
+
+                        </View>
+                      </View>
+            ): null}
         </View>
     )
 };

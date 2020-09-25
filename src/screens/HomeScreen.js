@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import Style from '../Styles';
 import { AntDesign } from '@expo/vector-icons';
+import {BottomNavigator} from "../components/BottomNavigator";
 
 const HomeScreen = props => {
 
@@ -20,21 +21,9 @@ const HomeScreen = props => {
             <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0 }}>
                 <View style={{ height: 1, backgroundColor: 'rgb(3, 184, 234)' }} />
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity style={{ flex: 1 }} onPress={() => props.navigation.navigate('Login')}>
-                        <View style={{ height: 70, alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
-                            <AntDesign style={{ ...Style.imageButton }}
-                                name="user" size={25} color='rgb(165, 165, 166)' />
-                            <Text style={{ marginLeft: 16, textAlignVertical: 'center', color: 'rgb(3, 184, 234)' }}>Login</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <BottomNavigator text = 'Login' redirect = 'Login' symbolName = 'user' />
                     <View style={{ width: 1, backgroundColor: 'rgb(3, 184, 234)' }} />
-                    <TouchableOpacity style={{ flex: 1 }} onPress={() => props.navigation.navigate('Signup')}>
-                        <View style={{ height: 70, alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
-                            <AntDesign style={{ ...Style.imageButton }}
-                                name="adduser" size={25} color='rgb(165, 165, 166)' />
-                            <Text style={{ marginLeft: 16, textAlignVertical: 'center', color: 'rgb(3, 184, 234)' }}>Register</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <BottomNavigator text = 'Register' redirect = 'Signup' symbolName = 'adduser' />
                 </View>
             </View>
         </View>

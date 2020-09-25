@@ -14,13 +14,25 @@ router.get('/userdata', async (req, res) => {
 })
 
 router.post('/userdata', async (req, res) => {
-    const {timeStamp, firstName, lastName, age, gender, phoneNumber, address} = req.body;
+    const {timeStamp, firstName, lastName, age, gender, phoneNumber, address, bloodGroup, diabitic, highBloodPressure, currentUnderDiagnosis} = req.body;
     if(!firstName || !lastName || !timeStamp){
         return res.status(422).send({error: 'You must provide First Name and Last Name'});
     }
 
     try{
-        const userData = new UserData({timeStamp, firstName, lastName, age, gender, phoneNumber ,address, userId: req.user._id});
+        const userData = new UserData({
+            timeStamp,
+            firstName,
+            lastName,
+            age,
+            gender,
+            phoneNumber,
+            address,
+            bloodGroup,
+            diabitic,
+            highBloodPressure,
+            currentUnderDiagnosis,
+            userId: req.user._id});
         await userData.save();
         res.send(userData);
     }catch(err){

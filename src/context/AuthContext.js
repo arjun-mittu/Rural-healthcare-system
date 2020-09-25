@@ -49,6 +49,7 @@ const getUserInfo = (dispatch) => {
         const token = await AsyncStorage.getItem('token');
         if(token){
             const userInfo = await userDataApi.get('/userdata', { headers: { 'Authorization': `Bearer ${token}` }});
+            console.log(`Bearer ${token}`)
             dispatch({type: 'userInfo', payload: userInfo.data});
         }
         else{

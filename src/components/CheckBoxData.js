@@ -23,4 +23,4 @@ const CheckBoxDataPassive = props => {
     )
 }
 
-export {CheckBoxDataPassive, CheckBoxDataActive};
+export {CheckBoxDataActive, CheckBoxDataPassive};
