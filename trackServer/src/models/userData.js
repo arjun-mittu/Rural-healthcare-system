@@ -23,6 +23,22 @@ const userDataSchema = new mongoose.Schema({
     address: {
         type: 'String',
         default: ''
+    },
+    bloodGroup: {
+        type: 'String',
+        default: 'B+'
+    },
+    diabitic: {
+        type: 'String',
+        default: 'No'
+    },
+    highBloodPressure: {
+        type: 'String',
+        default: 'No'
+    },
+    currentUnderDiagnosis:{
+        type: 'String',
+        default: 'No'
     }
 });
 
