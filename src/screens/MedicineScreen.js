@@ -1,14 +1,23 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TextInput, TouchableOpacity, StatusBar} from 'react-native';
 import Style from '../Styles';
+import LoginScreen from "./LoginScreen";
 
 const MedicineScreen = props => {
     return(
         <View style = {Style.background}>
-            <Text>Medicine Screen</Text>
+            <StatusBar  barStyle="light-content" backgroundColor="transparent" translucent={true} />
+            <View style = {{marginTop: 45}}>
+                <Text>Medicine Screen</Text>
+            </View>
         </View>
     )
 }
 
+MedicineScreen.navigationOptions = () => {
+    return{
+        headerShown: false
+    };
+}
 
 export default MedicineScreen;
