@@ -1,16 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { Text, View, StyleSheet, TextInput, Picker, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import Style from '../Styles';
 import { AntDesign } from '@expo/vector-icons';
-import UserContext from "../context/UserContext";
 
 const HomeScreen = props => {
-    const value = useContext(UserContext);
-    const [pickerValue, changePickerValue] = useState('');
 
     return (
-        <View style={Style.background}>
-            <Text style={Style.subHeading}> About </Text>
+            <View style={Style.background}>
+            <StatusBar  barStyle="light-content" backgroundColor="transparent" translucent={true} />
+            <Text style={{...Style.subHeading, marginTop: 45}}> About </Text>
             <Text style={Style.paragraph}>    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
             when an unknown printer took a galley of type and scrambled it to make a type
@@ -41,6 +39,11 @@ const HomeScreen = props => {
             </View>
         </View>
     )
+}
+HomeScreen.navigationOptions = () => {
+    return{
+        headerShown: false
+    };
 }
 
 export default HomeScreen;
