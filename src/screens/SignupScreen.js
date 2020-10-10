@@ -3,11 +3,18 @@ import {Text, View, StyleSheet, TextInput, TouchableOpacity, StatusBar} from 're
 import Style from '../Styles';
 import { AntDesign } from '@expo/vector-icons';
 import {Context as AuthContext} from '../context/AuthContext';
+import InputTextBox from "../components/InputTextBox";
 
 const SignupScreen = props => {
     const [email, changeEmail] = useState('');
     const [password, changePassword] = useState('');
-    const {state, signup} = useContext(AuthContext);
+    const {state, signup, postUserInfo} = useContext(AuthContext);
+    const [tokenFetched, isTokenGenerated] = useState(false);
+
+    const changeTokenStatus = (value) => {
+        console.log('Value changed');
+        isTokenGenerated(value);
+    }
 
     return(
         <View style = {{...Style.background, flex: 1, justifyContent: 'center'}}>
@@ -17,27 +24,14 @@ const SignupScreen = props => {
                 marginTop: 10
             }}
                        name="user" size={75} color='rgb(3, 184, 234)' />
-
-            <TextInput
-                style = {Style.textInput}
-                autoCapitalize = "none"
-                value = {email}
-                onChangeText = {newValue => changeEmail(newValue)}
-                autoCorrect = {false}
-                placeholder = "Email"/>
-
-            <TextInput
-                secureTextEntry
-                style = {Style.textInput}
-                autoCapitalize = "none"
-                value = {password}
-                onChangeText = {newValue => changePassword(newValue)}
-                autoCorrect = {false}
-                placeholder = "Password"/>
+            <InputTextBox data = 'Email' value = {email} stateChange ={newValue => changeEmail(newValue)} />
+            <InputTextBox data = 'Password' value = {password} stateChange ={newValue => changePassword(newValue)} />
             {state.errorMessage ? (<Text style = {{color: 'red', textAlign: 'center', marginBottom: 10}}>{state.errorMessage}</Text>): null}
             <TouchableOpacity onPress = {() => {
-                signup({email, password})
+                signup({email, password}, (value) => {
+                    changeTokenStatus(value)})
             }}>
+                {tokenFetched && props.navigation.navigate('AddUserData')}
                 <Text style = {Style.buttonStyle}> Signup </Text>
             </TouchableOpacity>
 

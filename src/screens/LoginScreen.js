@@ -4,6 +4,7 @@ import Style from '../Styles';
 import {NavigationEvents} from "react-navigation";
 import { AntDesign } from '@expo/vector-icons';
 import {Context as AuthContext} from "../context/AuthContext";
+import InputTextBox from "../components/InputTextBox";
 
 const LoginScreen = props => {
     const [email, changeEmail] = useState('');
@@ -26,22 +27,8 @@ const LoginScreen = props => {
             }}
             name="user" size={75} color='rgb(3, 184, 234)' />
 
-            <TextInput
-                style = {Style.textInput}
-                autoCapitalize = "none"
-                value = {email}
-                onChangeText = {newValue => changeEmail(newValue)}
-                autoCorrect = {false}
-                placeholder = "Email"/>
-
-            <TextInput
-                 secureTextEntry
-                 style = {Style.textInput}
-                 autoCapitalize = "none"
-                 value = {password}
-                 onChangeText = {newValue => changePassword(newValue)}
-                 autoCorrect = {false}
-                 placeholder = "Password"/>
+            <InputTextBox data = 'Email' value = {email} stateChange ={newValue => changeEmail(newValue)} />
+            <InputTextBox data = 'Password' value = {password} stateChange ={newValue => changePassword(newValue)} />
             {state.errorMessage ? (<Text style = {{color: 'red', textAlign: 'center', marginBottom: 10}}>{state.errorMessage}</Text>): null}
             <TouchableOpacity onPress = {() => signin({email, password})}>
                 <Text style = {Style.buttonStyle}> Login </Text>

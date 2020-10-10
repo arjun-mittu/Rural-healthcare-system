@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet, TextInput, TouchableOpacity, StatusBar} from 'react-native';
 import Style from '../Styles';
+import {Context as AuthContext} from '../context/AuthContext';
 
 const EditPatientProfileScreen = props => {
     return(
@@ -8,6 +9,7 @@ const EditPatientProfileScreen = props => {
             <StatusBar  barStyle="light-content" backgroundColor="transparent" translucent={true} />
             <View style = {{marginTop: 45}}>
                 <Text>Edit Patient Profile Screen</Text>
+
             </View>
         </View>
     )

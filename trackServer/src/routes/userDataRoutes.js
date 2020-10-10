@@ -9,13 +9,26 @@ const router = express.Router();
 router.use(requireAuth);
 
 router.get('/userdata', async (req, res) => {
-     const userData = await UserData.find({userId: req.user._id});
-     res.send(userData);
+    const userData = await UserData.find({userId: req.user._id});
+    res.send(userData);
 })
 
 router.post('/userdata', async (req, res) => {
-    const {timeStamp, firstName, lastName, age, gender, phoneNumber, address, bloodGroup, diabitic, highBloodPressure, currentUnderDiagnosis} = req.body;
-    if(!firstName || !lastName || !timeStamp){
+    const {timeStamp,
+            firstName,
+            lastName,
+            age,
+            gender,
+            phoneNumber,
+            address,
+            bloodGroup,
+            diabitic,
+            highBloodPressure,
+            currentUnderDiagnosis} = req.body;
+    console.log(req.body);
+    console.log(req.user._id);
+
+    if(!firstName || !lastName){
         return res.status(422).send({error: 'You must provide First Name and Last Name'});
     }
 

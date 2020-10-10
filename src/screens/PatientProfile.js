@@ -1,15 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {StatusBar, Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {Context as AuthContext} from "../context/AuthContext";
 import Style from "../Styles";
 import Separator from "../components/Separator";
 import { Entypo } from '@expo/vector-icons';
-import { SimpleLineIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import {CheckBoxDataActive, CheckBoxDataPassive} from "../components/CheckBoxData";
 import {BottomNavigator, BotttomNavigatorWithoutBorder} from "../components/BottomNavigator";
+import { withNavigation } from 'react-navigation';
+
 
 const SYMBOL_COLOR = 'rgb(3, 184, 234)';
 const TEXT_COLOR = 'white';
@@ -17,7 +18,7 @@ const PatientProfile = props => {
     const {state, signup, signout, getUserInfo} = useContext(AuthContext);
 
     useEffect(() => {
-        getUserInfo()
+        getUserInfo();
     }, [])
 
     const redirectToSearchMedicineScreen = () => {
@@ -76,11 +77,10 @@ const PatientProfile = props => {
                             </View>
                     </View>
                         </View>
-                </View>)
-                : null}
+                </View>) : null}
 
             <Separator />
-            {state.userInfo ? (
+            {state.userInfo && (
                 < View style = {{...localStyle.blocks, flexDirection: 'row'}}>
                     <View style = {{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                         <Fontisto style = {{marginHorizontal: 15}} name="blood-drop" size={25} color={SYMBOL_COLOR} />
@@ -90,12 +90,11 @@ const PatientProfile = props => {
                         <MaterialCommunityIcons style = {{marginHorizontal: 15}} name="face-agent" size={25} color= {SYMBOL_COLOR} />
                         <Text style = {{color: TEXT_COLOR}}>{state.userInfo[0].age} yrs old</Text>
                     </View>
-                </View>)
-            : null}
+                </View>)}
 
             <Separator />
 
-            {state.userInfo ? (
+            {state.userInfo && (
 
                     <View style = {localStyle.blocks}>
                     < View style = {{flexDirection: 'row'}}>
@@ -113,23 +112,20 @@ const PatientProfile = props => {
                                 (<CheckBoxDataActive data = 'Sugar'/>) : (<CheckBoxDataPassive data = 'Sugar'/> )}
                         </View>
                     </View>
-                  )
-                : null}
+                  )}
 
 
-            {state.userInfo ? (
+            {state.userInfo && (
                       <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0 }}>
                         <View style = {{flexDirection: 'row'}}>
 
                             <BotttomNavigatorWithoutBorder callBack = {signout} symbolName = 'logout' text = "Logout" />
-
                             <BotttomNavigatorWithoutBorder callBack = {redirectToSearchMedicineScreen} symbolName = 'search1' text = "Medicine" />
-
                             <BotttomNavigatorWithoutBorder callBack = {redirectToSearchDoctorScreen} symbolName = 'search1' text = "Doctor" />
 
                         </View>
                       </View>
-            ): null}
+            )}
         </View>
     )
 };
@@ -151,4 +147,4 @@ const localStyle = StyleSheet.create({
     }
 })
 
-export default PatientProfile;
+export default withNavigation(PatientProfile);

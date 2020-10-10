@@ -4,6 +4,7 @@ import createDataContext from "./createDataContext";
 import userDataApi from "../api/userDataApi";
 import {navigate} from "../navigationRef";
 
+
 const authReducer = (state, action) => {
     switch(action.type){
         case 'add_error': return {...state, errorMessage: action.payload};
@@ -31,14 +32,38 @@ const clearErrorMessage = dispatch => {
   return () => dispatch({type: 'clearErrorMessage'});
 };
 
+const postUserInfo = (dispatch) => {
+     return async (firstName, lastName, address) =>{
+        const token = await AsyncStorage.getItem('token');
+        const data = JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
+            gender: 'Male',
+            address: address,
+            timeStamp: 1000,
+            age: 12,
+            phoneNumber: 132})
+        if(token){
+            await userDataApi.post('/userdata', data, {
+                headers: { 'Authorization': `Bearer ${token}`, 'content-type': 'application/json'},
+            })
+            console.log('Tanmay');
+        }
+        else{
+            console.log('Error');
+           // dispatch({type: 'add_error', payload: 'Can not load data at the moment'});
+        }
+    }
+}
+
 const signup = (dispatch) => {
-    return async ({ email, password }) => {
+    return async ({ email, password }, changeTokenStatus) => {
         try{
             const response = await userDataApi.post('/Signup', {email, password});
             await AsyncStorage.setItem('token', response.data.token);
             dispatch({type: 'signup', payload: response.data.token});
-            navigate('PatientProfile');
-        }catch (err){
+            changeTokenStatus(true);
+            }catch (err){
             dispatch({type: 'add_error', payload: 'Something went wrong with Signup'});
         }
     };
@@ -49,27 +74,7 @@ const getUserInfo = (dispatch) => {
         const token = await AsyncStorage.getItem('token');
         if(token){
             const userInfo = await userDataApi.get('/userdata', { headers: { 'Authorization': `Bearer ${token}` }});
-            console.log(`Bearer ${token}`)
             dispatch({type: 'userInfo', payload: userInfo.data});
-        }
-        else{
-            dispatch({type: 'add_error', payload: 'Can not load data at the moment'});
-        }
-    }
-}
-
-const postUserInfo = (dispatch) => {
-    return async ({firstName, lastName, gender, address, timeStamp, age, phoneNumber}) => {
-        const token = await AsyncStorage.getItem('token');
-        const data = {'firstName': firstName,
-            'lastName': lastName,
-            'gender': gender,
-            'address': address,
-            'timeStamp': timeStamp,
-            'age': age,
-            'phoneNumber': phoneNumber}
-        if(token){
-            await userDataApi.post('/userdata',  data, { headers: { 'Authorization': `Bearer ${token}`}})
         }
         else{
             dispatch({type: 'add_error', payload: 'Can not load data at the moment'});
@@ -83,6 +88,7 @@ const signin = (dispatch) => {
             const response = await userDataApi.post('/signin', {email, password});
             await AsyncStorage.setItem('token', response.data.token);
             dispatch({type: 'signin', payload: response.data.token});
+
             navigate('PatientProfile');
         }catch (err){
             dispatch({type: 'add_error', payload: 'Something went wrong with Signin'})
