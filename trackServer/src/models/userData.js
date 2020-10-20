@@ -14,7 +14,7 @@ const userDataSchema = new mongoose.Schema({
         type: 'String',
         default: ''
     },
-    age: Number    ,
+    age: Number,
     gender: {
         type: 'String',
         default: 'Male'
@@ -39,6 +39,18 @@ const userDataSchema = new mongoose.Schema({
     currentUnderDiagnosis:{
         type: 'String',
         default: 'No'
+    },
+    clinicAddress: {
+        type: 'String',
+        default: 'Earth'
+    },
+    specialisation: {
+        type: 'String',
+        default: 'Bugging ppl'
+    },
+    userType: {
+        type: 'String',
+        default: 'Patient'
     }
 });
 

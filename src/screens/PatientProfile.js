@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {StatusBar, Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {StatusBar, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {Context as AuthContext} from "../context/AuthContext";
 import Style from "../Styles";
 import Separator from "../components/Separator";
@@ -8,14 +8,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import {CheckBoxDataActive, CheckBoxDataPassive} from "../components/CheckBoxData";
-import {BottomNavigator, BotttomNavigatorWithoutBorder} from "../components/BottomNavigator";
+import {BotttomNavigatorWithoutBorder} from "../components/BottomNavigator";
 import { withNavigation } from 'react-navigation';
-
 
 const SYMBOL_COLOR = 'rgb(3, 184, 234)';
 const TEXT_COLOR = 'white';
 const PatientProfile = props => {
-    const {state, signup, signout, getUserInfo} = useContext(AuthContext);
+    const {state, signout, getUserInfo} = useContext(AuthContext);
 
     useEffect(() => {
         getUserInfo();

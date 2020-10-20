@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {Text, View, StyleSheet, TextInput, TouchableOpacity, StatusBar} from 'react-native';
+import {Text, View, TouchableOpacity, StatusBar} from 'react-native';
 import Style from '../Styles';
 import {NavigationEvents} from "react-navigation";
 import { AntDesign } from '@expo/vector-icons';
@@ -33,7 +33,7 @@ const LoginScreen = props => {
             <TouchableOpacity onPress = {() => signin({email, password})}>
                 <Text style = {Style.buttonStyle}> Login </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress = {() => props.navigation.navigate('Signup')}>
+            <TouchableOpacity onPress = {() => props.navigation.navigate('SignupIndex')}>
                 <Text style = {{
                     textAlign: 'center',
                     margin: 10,

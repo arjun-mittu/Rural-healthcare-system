@@ -42,6 +42,16 @@ export default Style = StyleSheet.create({
         color: 'rgb(3, 184, 234)',
         backgroundColor: 'rgb(38, 41, 43)'
     },
+    bigImageButton: {
+        width: 200,
+        height: 200,
+        padding: 15,
+        borderWidth: 1,
+        borderRadius: 100,
+        borderColor: 'rgb(38, 41, 43)',
+        color: 'rgb(3, 184, 234)',
+        backgroundColor: 'rgb(38, 41, 43)'
+    },
     buttonStyle: {
         marginHorizontal: 15,
         padding: 10,

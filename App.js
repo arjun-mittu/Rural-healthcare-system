@@ -14,8 +14,12 @@ import EditPatientProfileScreen from "./src/screens/EditPatientProfileScreen";
 import AddUserData from "./src/screens/AddUserData";
 import HospitalScreen from "./src/screens/HospitalScreen";
 import HospitalProfile from "./src/screens/HospitalProfile";
+import SignupIndex from "./src/screens/SignupIndex";
+import DoctorSignup from "./src/screens/DoctorSignup";
 
 const navigator = createStackNavigator({
+    DoctorSignup: DoctorSignup,
+    SignupIndex: SignupIndex,
     Login: LoginScreen,
     Home: HomeScreen,
     Signup: SignupScreen,
@@ -28,7 +32,7 @@ const navigator = createStackNavigator({
     HospitalScreen: HospitalScreen,
     HospitalProfile
 },{
-    initialRouteName: 'HospitalScreen',
+    initialRouteName: 'SignupIndex',
     defaultNavigationOptions: {
           title: "Health Care"
     }
@@ -43,6 +47,7 @@ export default () => {
         </AuthProvider>
         </>
 };
-//DoctorProfile- Shubham 
-//MedicineTable- Manav
-//Signup- Mittu
+
+/*
+    Mittu: Medicine Name -> Shops ka naam agaya
+*/
