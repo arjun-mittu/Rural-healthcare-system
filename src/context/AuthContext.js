@@ -10,11 +10,100 @@ const authReducer = (state, action) => {
         case 'signup': return {token: action.payload, errorMessage: ''};
         case 'signin': return {token: action.payload, errorMessage: ''};
         case 'clearErrorMessage': return {...state, errorMessage: ''};
-        case 'signout': return {token: null, errorMessage: ''}
-        case 'userInfo': return {...state, userInfo: action.payload}
+        case 'signout': return {token: null, errorMessage: ''};
+        case 'userInfo': return {...state, userInfo: action.payload};
+        case 'getAllInfo': return {...state, allInfo: action.payload};
+        case 'getParticularInfo': return {...state, particularInfo: action.payload};
         default: return state;
     }
 };
+
+const getParticularInfo = dispatch => {
+    return async (id) => {
+        const dataId = JSON.stringify({id});
+        const token = await AsyncStorage.getItem('token');
+        try{
+            const data = await userDataApi.post('/getParticularInfo', dataId, {
+                headers: { 'Authorization': `Bearer ${token}`, 'content-type': 'application/json'},
+            })
+            if(data){
+                dispatch({type: 'getParticularInfo', payload: data.data});
+            }
+        }catch (err){
+            dispatch({type: 'add_error', payload: 'Something went wrong in Update'});
+        }
+    }
+}
+
+const getAllInfo = dispatch => {
+    return async (reRender) => {
+        const token = await AsyncStorage.getItem('token');
+        try{
+            const data = await userDataApi.get('/getAllInfo', {
+                headers: { 'Authorization': `Bearer ${token}`, 'content-type': 'application/json'},
+            })
+            if(data){
+                dispatch({type: 'getAllInfo', payload: data.data});
+            }
+            reRender(1);
+        }catch (err){
+            dispatch({type: 'add_error', payload: 'Something went wrong in Update'});
+        }
+    }
+}
+
+const updateDoctorData = dispatch => {
+    return async ({id, firstName, lastName, age, phone, address, gender, appointmentFees, specialisation}) => {
+        const token = await AsyncStorage.getItem('token');
+        const data = JSON.stringify({
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            gender: gender,
+            age: age,
+            address: address,
+            appointmentFees,
+            specialisation,
+            phoneNumber: phone
+        })
+        try{
+            await userDataApi.post('/updateDoctor', data, {
+                headers: { 'Authorization': `Bearer ${token}`, 'content-type': 'application/json'},
+            })
+            navigate('PatientProfile');
+        }catch(err){
+            dispatch({type: 'add_error', payload: 'Something went wrong in Update'});
+        }
+    }
+}
+
+const updatePatientData = dispatch => {
+    return async ({id, firstName, lastName, age, phone, address, gender, bloodGroup, diabitic, sugar, highBloodPressure, currentUnderDiagnosis}) => {
+        const token = await AsyncStorage.getItem('token');
+        const data = JSON.stringify({
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            gender: gender,
+            age: age,
+            address: address,
+            bloodGroup: bloodGroup,
+            diabitic: diabitic,
+            sugar,
+            highBloodPressure: highBloodPressure,
+            currentUnderDiagnosis: currentUnderDiagnosis,
+            phoneNumber: phone
+        })
+        try{
+            await userDataApi.post('/updatePatient', data, {
+                headers: { 'Authorization': `Bearer ${token}`, 'content-type': 'application/json'},
+            })
+            navigate('PatientProfile');
+        }catch (err){
+            dispatch({type: 'add_error', payload: 'Something went wrong in Update'});
+        }
+    }
+}
 
 const tryLocalSignin = dispatch => async () => {
     const token = await AsyncStorage.getItem('token');
@@ -32,9 +121,8 @@ const clearErrorMessage = dispatch => {
 };
 
 const postUserInfo = (dispatch) => {
-     return async ({firstName, lastName, age, phone, address, gender, bloodGroup, diabitic, highBloodPressure, currentlyUnderDiagnosis}, changeRegistrationStatus, userType, appointmentFees,
-                   specialisation) =>{
-        console.log(appointmentFees, specialisation);
+     return async ({firstName, lastName, age, phone, address, gender, bloodGroup, diabitic, highBloodPressure, sugar, currentUnderDiagnosis, userType, appointmentFees,
+                       specialisation}, changeRegistrationStatus) =>{
         const token = await AsyncStorage.getItem('token');
         const data = JSON.stringify({
             firstName: firstName,
@@ -45,11 +133,11 @@ const postUserInfo = (dispatch) => {
             bloodGroup: bloodGroup,
             diabitic: diabitic,
             highBloodPressure: highBloodPressure,
-            currentlyUnderDiagnosis: currentlyUnderDiagnosis,
-            timeStamp: 1000,
+            sugar,
+            currentUnderDiagnosis: currentUnderDiagnosis,
             phoneNumber: phone,
             userType: userType,
-            appointmentFees: appointmentFees,
+            fees: appointmentFees,
             specialisation: specialisation
         })
         if(token){
@@ -59,8 +147,7 @@ const postUserInfo = (dispatch) => {
             changeRegistrationStatus(true);
         }
         else{
-            console.log('Error');
-                dispatch({type: 'add_error', payload: 'Can not load data at the moment'});
+            dispatch({type: 'add_error', payload: 'Can not load data at the moment'});
         }
     }
 }
@@ -108,10 +195,10 @@ const signin = (dispatch) => {
 const signout = (dispatch) => async() => {
    await AsyncStorage.removeItem('token');
    dispatch({type: 'signout'});
-   navigate('Login')
+   navigate('Home')
 }
 
 export const {Context, Provider} = createDataContext(
     authReducer,
-    {signup, signin, clearErrorMessage, tryLocalSignin, signout, getUserInfo, postUserInfo},
-    {token: null, errorMessage: '', userInfo: {}});
+    {getAllInfo, signup, signin, clearErrorMessage, tryLocalSignin, signout, getParticularInfo, getUserInfo, postUserInfo, updatePatientData, updateDoctorData},
+    {token: null, errorMessage: '', userInfo: {}, allInfo: [], particularInfo: {}});

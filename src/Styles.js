@@ -42,12 +42,22 @@ export default Style = StyleSheet.create({
         color: 'rgb(3, 184, 234)',
         backgroundColor: 'rgb(38, 41, 43)'
     },
-    bigImageButton: {
-        width: 200,
-        height: 200,
+    mediumImageButton:{
+        width: 70,
+        height: 70,
         padding: 15,
         borderWidth: 1,
-        borderRadius: 100,
+        borderRadius: 35,
+        borderColor: 'rgb(38, 41, 43)',
+        color: 'rgb(3, 184, 234)',
+        backgroundColor: 'rgb(38, 41, 43)'
+    },
+    bigImageButton: {
+        width: 190,
+        height: 190,
+        padding: 15,
+        borderWidth: 1,
+        borderRadius: 95,
         borderColor: 'rgb(38, 41, 43)',
         color: 'rgb(3, 184, 234)',
         backgroundColor: 'rgb(38, 41, 43)'

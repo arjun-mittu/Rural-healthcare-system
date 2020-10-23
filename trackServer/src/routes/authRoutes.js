@@ -8,11 +8,8 @@ router.post('/Signup', async (req, res) => {
     const {email, password} = req.body;
     try{
         const user = new User({email, password});
-        console.log(user);
         await user.save();
-        console.log('User Saved');
         const token = jwt.sign({userId: user._id}, 'MY_SECRET_KEY');
-        console.log('Token Generated');
         res.send({token})
     }
     catch(err){

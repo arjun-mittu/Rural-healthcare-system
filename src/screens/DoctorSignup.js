@@ -1,7 +1,7 @@
 import React, {useState, useContext, useReducer} from 'react';
 import {Text, View, TouchableOpacity, ScrollView, StyleSheet} from 'react-native';
 import Style from '../Styles';
-import { AntDesign } from '@expo/vector-icons';
+import {AntDesign, Fontisto} from '@expo/vector-icons';
 import {Context as AuthContext} from '../context/AuthContext';
 import InputTextBox from "../components/InputTextBox";
 import PickerComponent from "../components/PickerComponent";
@@ -36,11 +36,7 @@ const DoctorSignup = props => {
     return(
 
         <View style = {{...Style.background, paddingTop: 45}}>
-            <AntDesign style = {{
-                textAlign: 'center',
-                marginTop: 10
-            }}
-                       name="user" size={75} color='rgb(3, 184, 234)' />
+            <Fontisto style = {{textAlign: 'center', marginTop: 10}} name="doctor" size={75} color='rgb(3, 184, 234)' />
             <Separator />
             <ScrollView>
                 <InputTextBox data = 'Email' value = {email} stateChange ={newValue => changeEmail(newValue)} />
@@ -51,9 +47,20 @@ const DoctorSignup = props => {
                 <InputTextBox data = 'Phone Number' value = {phone} stateChange ={newValue => dispatch({type: 'phone', payload: newValue})} />
                 <InputTextBox data = 'Address' value = {address} stateChange ={newValue => dispatch({type: 'address', payload: newValue})} />
                 <InputTextBox data = 'appointmentFees' value = {appointmentFees} stateChange ={newValue => dispatch({type: 'appointmentFees', payload: newValue})} />
-                <InputTextBox data = 'specialisation' value = {specialisation} stateChange ={newValue => dispatch({type: 'specialisation', payload: newValue})} />
-
                 <View style = {localStyle.blocks}>
+                    <View style = {{flexDirection: 'row'}}>
+                        <PickerComponent
+                            style = {{flex: 1}}
+                            title = 'Specialisation In'
+                            value = {specialisation}
+                            setValue = {val => dispatch({type: 'specialisation', payload: val})}
+                            item ={['Cardiologist', 'Audiologist',
+                                'Dentist', 'ENT Specialist', 'Gynaecologist',
+                                'Orthopaedic surgeon', 'Paediatrician',
+                                'Psychiatrists', 'Veterinarian', 'Radiologist',
+                                'Pulmonologist', 'Endocrinologist', 'Oncologist',
+                                'Neurologist', 'Cardiothoracic surgeon']} />
+                    </View>
                     <View style = {{flexDirection: 'row'}}>
                         <PickerComponent style = {{flex: 1}} title = 'Gender' value = {gender} setValue = {val => dispatch({type: 'gender', payload: val})} item ={['Male', 'Female']} />
                     </View>
@@ -81,7 +88,7 @@ const DoctorSignup = props => {
                     }, (value) => {
                         changeRegistrationStatus(value)})}
                     {tokenFetched && changeTokenStatus(false)}
-                    {registrationStatus && props.navigation.navigate('DoctorProfile')}
+                    {registrationStatus && props.navigation.navigate('PatientProfile')}
                     <Text style = {Style.buttonStyle}> Signup </Text>
                 </TouchableOpacity>
                 <Separator />

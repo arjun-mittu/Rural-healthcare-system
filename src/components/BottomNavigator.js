@@ -22,7 +22,7 @@ const BotttomNavigatorWithoutBorder = props => {
             <View style = {{margin: 15, alignItems: 'center'}}>
                 <TouchableOpacity onPress={() => props.callBack()}>
                     <AntDesign style={{marginLeft: 25, textAlignVertical: 'center', marginBottom: 10}} name={props.symbolName} size={25} color="rgb(3, 184, 234)" />
-                    <Text style={{ marginLeft: 16, textAlignVertical: 'center', color: 'rgb(3, 184, 234)' }}> {props.text} </Text>
+                    <Text style={{ marginLeft: 16, textAlignVertical: 'center', color: 'rgb(3, 184, 234)', fontSize: 10 }}> {props.text} </Text>
                 </TouchableOpacity>
             </View>
         </View>

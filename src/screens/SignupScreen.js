@@ -17,8 +17,9 @@ const reducer = (state, action) => {
         case 'gender': return {...state, gender : action.payload};
         case 'bloodGroup': return {...state, bloodGroup: action.payload};
         case 'diabitic': return {...state, diabitic: action.payload};
+        case 'sugar': return {...state, sugar: action.payload};
         case 'highBloodPressure': return {...state, highBloodPressure: action.payload};
-        case 'currentlyUnderDiagnosis': return {...state, currentlyUnderDiagnosis: action.payload}
+        case 'currentUnderDiagnosis': return {...state, currentUnderDiagnosis: action.payload}
     }
 }
 
@@ -28,8 +29,8 @@ const SignupScreen = props => {
     const {state, signup, postUserInfo} = useContext(AuthContext);
     const [tokenFetched, isTokenGenerated] = useState(false);
     const [registrationStatus, changeRegistrationStatus] = useState(false);
-    const [fields, dispatch] = useReducer(reducer, {firstName: '', lastName: '', age: '', phone: '', address: '', gender: 'Male', bloodGroup: 'A+', diabitic: 'No', highBloodPressure: 'No', currentlyUnderDiagnosis: 'No'});
-    const {firstName, lastName, age, phone, address, gender, bloodGroup , diabitic , highBloodPressure , currentlyUnderDiagnosis} = fields;
+    const [fields, dispatch] = useReducer(reducer, {firstName: '', lastName: '', age: '', phone: '', address: '', gender: 'Male', bloodGroup: 'A+', diabitic: 'No', highBloodPressure: 'No', currentUnderDiagnosis: 'No', sugar: 'No'});
+    const {firstName, lastName, age, phone, address, gender, bloodGroup , diabitic , highBloodPressure , currentUnderDiagnosis, sugar} = fields;
 
     const changeTokenStatus = (value) => {
         isTokenGenerated(value);
@@ -63,8 +64,11 @@ const SignupScreen = props => {
                     <PickerComponent style = {{flex: 1}} title = 'Diabitic?' value = {diabitic} setValue = {val => dispatch({type: 'diabitic', payload: val})} item ={['Yes', 'No']} />
                     <PickerComponent style = {{flex: 1}} title = 'High Blood Pressure?' value = {highBloodPressure} setValue = {val => dispatch({type: 'highBloodPressure', payload: val})} item ={['Yes', 'No']} />
                 </View>
+                <View>
+                    <PickerComponent value = {sugar} title = 'Sugar?' setValue = {val => dispatch({type: 'sugar', payload: val})} item ={['Yes', 'No']} />
+                </View>
                 <View style = {{justifyContent: 'center', alignItems: 'center'}}>
-                    <PickerComponent value = {currentlyUnderDiagnosis} title = 'Are You Currently Under Some Diagnosis by some other Doctor?' setValue = {val => dispatch({type: 'currentlyUnderDiagnosis', payload: val})} item ={['Yes', 'No']} />
+                    <PickerComponent value = {currentUnderDiagnosis} title = 'Are You Currently Under Some Diagnosis by some other Doctor?' setValue = {val => dispatch({type: 'currentUnderDiagnosis', payload: val})} item ={['Yes', 'No']} />
                 </View>
             </View>
             {state.errorMessage ? (<Text style = {{color: 'red', textAlign: 'center', marginBottom: 10}}>{state.errorMessage}</Text>): null}
@@ -82,7 +86,8 @@ const SignupScreen = props => {
                     bloodGroup,
                     diabitic,
                     highBloodPressure,
-                    currentlyUnderDiagnosis,
+                    currentUnderDiagnosis,
+                    sugar,
                     userType: 'Patient',
                     appointmentFees: 'NA',
                     specialisation: 'NA'

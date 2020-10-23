@@ -23,7 +23,7 @@ const HomeScreen = props => {
                 <View style={{ flexDirection: 'row' }}>
                     <BottomNavigator text = 'Login' redirect = 'Login' symbolName = 'user' />
                     <View style={{ width: 1, backgroundColor: 'rgb(3, 184, 234)' }} />
-                    <BottomNavigator text = 'Register' redirect = 'Signup' symbolName = 'adduser' />
+                    <BottomNavigator text = 'Register' redirect = 'SignupIndex' symbolName = 'adduser' />
                 </View>
             </View>
         </View>

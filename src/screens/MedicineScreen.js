@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {Text, View, StatusBar,FlatList, Image} from 'react-native';
 import Style from '../Styles';
 import SearchBar from "../components/SearchBar";
@@ -7,11 +7,13 @@ import Separator from "../components/Separator";
 import {BotttomNavigatorWithoutBorder} from "../components/BottomNavigator";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
+import {Context as AuthContext} from "../context/AuthContext";
 
 const MedicineScreen = props => {
     const [searchQuery, onChangeSearchQuery] = useState('');
     const [medicineResult, fetchMedicineResult] = useMedicineSearchContext();
 
+    const {signout} = useContext(AuthContext);
     const executeFetchMedicine = (searchQuery) => {
         fetchMedicineResult(searchQuery);
     }
@@ -22,6 +24,18 @@ const MedicineScreen = props => {
         }
         sentence.join(" ")
         return sentence;
+    }
+
+    const redirectToSearchMedicineScreen = () => {
+        props.navigation.navigate('Medicine');
+    }
+
+    const redirectToSearchHospitalScreen = () => {
+        props.navigation.navigate('HospitalScreen');
+    }
+
+    const redirectToSearchDoctorScreen = () => {
+        props.navigation.navigate('FindDoctor');
     }
 
     return(
@@ -44,9 +58,10 @@ const MedicineScreen = props => {
             </View>
             <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0 }}>
                 <View style = {{flexDirection: 'row'}}>
-                    <BotttomNavigatorWithoutBorder callBack = {() => console.log('Pressed')} symbolName = 'logout' text = "Logout" />
-                    <BotttomNavigatorWithoutBorder callBack = {() => console.log('Pressed')} symbolName = 'search1' text = "Medicine" />
-                    <BotttomNavigatorWithoutBorder callBack = {() => console.log('Pressed')} symbolName = 'search1' text = "Doctor" />
+                    <BotttomNavigatorWithoutBorder callBack = {signout} symbolName = 'logout' text = "Logout" />
+                    <BotttomNavigatorWithoutBorder callBack = {redirectToSearchMedicineScreen} symbolName = 'search1' text = "Medicine" />
+                    <BotttomNavigatorWithoutBorder callBack = {redirectToSearchDoctorScreen} symbolName = 'search1' text = "Doctor" />
+                    <BotttomNavigatorWithoutBorder callBack = {redirectToSearchHospitalScreen} symbolName = 'search1' text = "Hospital" />
                 </View>
             </View>
         </View>

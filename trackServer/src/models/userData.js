@@ -5,7 +5,6 @@ const userDataSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    timeStamp: Number,
     firstName: {
         type: 'String',
         default: ''
@@ -36,6 +35,10 @@ const userDataSchema = new mongoose.Schema({
         type: 'String',
         default: 'No'
     },
+    sugar: {
+        type: 'String',
+        default: 'No'
+    },
     currentUnderDiagnosis:{
         type: 'String',
         default: 'No'
@@ -47,6 +50,10 @@ const userDataSchema = new mongoose.Schema({
     specialisation: {
         type: 'String',
         default: 'Bugging ppl'
+    },
+    fees: {
+        type: 'String',
+        default: '0'
     },
     userType: {
         type: 'String',
