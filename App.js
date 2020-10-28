@@ -16,29 +16,35 @@ import HospitalProfile from "./src/screens/HospitalProfile";
 import SignupIndex from "./src/screens/SignupIndex";
 import DoctorSignup from "./src/screens/DoctorSignup";
 import DoctorList from "./src/screens/DoctorList";
-import EditDoctorProfileScreen from "./src/screens/EdirDoctorProfileScreen";
-import MedStockScreen from './src/screens/MedStockScreen';
+import EditDoctorProfileScreen from "./src/screens/EditDoctorProfileScreen";
 import ReadOnlyProfile from "./src/screens/ReadOnlyProfile";
+import ChemistSignup from "./src/screens/ChemistSignup";
+import MedicineIndex from "./src/screens/MedicineIndex";
+import MedicalStores from "./src/screens/MedicalStores";
+import IndexScreen from "./src/screens/IndexScreen";
 
 const navigator = createStackNavigator({
+    IndexScreen,
+    MedicalStores,
+    MedicineIndex,
+    ChemistSignup,
     ReadOnlyProfile,
-    MedStockScreen,
     DoctorList,
     EditDoctorProfileScreen,
-    DoctorSignup: DoctorSignup,
-    SignupIndex: SignupIndex,
+    DoctorSignup,
+    SignupIndex,
     Login: LoginScreen,
     Home: HomeScreen,
     Signup: SignupScreen,
-    EditPatientProfile: EditPatientProfileScreen,
+    EditPatientProfileScreen,
     FindDoctor: FindDoctorScreen,
     Medicine: MedicineScreen,
-    PatientProfile: PatientProfile,
-    AddUserData: AddUserData,
-    HospitalScreen: HospitalScreen,
+    PatientProfile,
+    AddUserData,
+    HospitalScreen,
     HospitalProfile
 },{
-    initialRouteName: 'Home',
+    initialRouteName: 'IndexScreen',
     defaultNavigationOptions: {
           title: "Health Care"
     }

@@ -1,12 +1,9 @@
 import React, {useContext, useEffect} from 'react';
-import {StatusBar, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {StatusBar, Text, View, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
 import {Context as AuthContext} from "../context/AuthContext";
 import Style from "../Styles";
 import Separator from "../components/Separator";
-import {Entypo, FontAwesome} from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { Fontisto } from '@expo/vector-icons';
+import { Fontisto, Entypo, FontAwesome, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 import {CheckBoxDataActive, CheckBoxDataPassive} from "../components/CheckBoxData";
 import {BotttomNavigatorWithoutBorder} from "../components/BottomNavigator";
 import { withNavigation } from 'react-navigation';
@@ -21,7 +18,7 @@ const PatientProfile = props => {
     }, [])
 
     const redirectToSearchMedicineScreen = () => {
-        props.navigation.navigate('Medicine');
+        props.navigation.navigate('MedicineIndex');
     }
 
     const redirectToSearchHospitalScreen = () => {
@@ -31,6 +28,22 @@ const PatientProfile = props => {
     const redirectToSearchDoctorScreen = () => {
         props.navigation.navigate('FindDoctor');
     }
+
+    const showMedicines = medicineList => {
+        return(
+            <FlatList
+                data = {medicineList}
+                renderItem = {({item}) => {
+                    return(
+                        <View style = {{paddingHorizontal: 2, margin: 3}}>
+                            <Text style = {{paddingHorizontal: 2, color: TEXT_COLOR}}>{item}</Text>
+                        </View>
+                    )
+                }}
+            />
+        )
+    }
+
     return(
         <View style = {Style.background}>
             <StatusBar  barStyle="light-content" backgroundColor="transparent" translucent={true} />
@@ -40,18 +53,19 @@ const PatientProfile = props => {
                     <View style = {{flexDirection: 'row'}}>
                         <View style = {{flex: 1}} />
                         {state.userInfo[0].userType === 'Patient' && (
-                        <TouchableOpacity onPress={() => props.navigation.navigate('EditPatientProfile')}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('EditPatientProfile', {state})}>
                             <Entypo name="edit" size={25} color={SYMBOL_COLOR}/>
                         </TouchableOpacity>)}
 
                         {state.userInfo[0].userType === 'Doctor' && (
-                            <TouchableOpacity onPress={() => props.navigation.navigate('EditDoctorProfileScreen')}>
+                            <TouchableOpacity onPress={() => props.navigation.navigate('EditDoctorProfileScreen', {state})}>
                                 <Entypo name="edit" size={25} color={SYMBOL_COLOR}/>
                             </TouchableOpacity>)}
                     </View>
                     <View style={{height: state.userInfo[0].userType === 'Patient' ? 200 : 150, justifyContent: 'center'}}>
                         {state.userInfo[0].userType === 'Patient' && (<Entypo style={{marginHorizontal: 110}} name="user" size={90} color={SYMBOL_COLOR}/>)}
                         {state.userInfo[0].userType === 'Doctor' && (<Fontisto style={{marginHorizontal: 110}} name="doctor" size={90} color={SYMBOL_COLOR}/>)}
+                        {state.userInfo[0].userType === 'Chemist' && (<AntDesign style={{marginHorizontal: 110}} name="medicinebox" size={90} color='rgb(3, 184, 234)'/>)}
                         {state.userInfo[0].userType === 'Patient' && (<Text style={{
                             marginTop: 10,
                             fontSize: 30,
@@ -80,13 +94,13 @@ const PatientProfile = props => {
                     <Separator />
                     <View>
                     <View style = {{...localStyle.blocks, flexDirection: 'row'}}>
-                        {state.userInfo[0].gender === 'Male' ?
+                        {state.userInfo[0].gender === 'Male' && state.userInfo[0].userType != 'Chemist' ?
                             <View style = {{flexDirection: 'row', alignItems: 'center', flex: 1}}>
                                 <MaterialCommunityIcons style = {{marginHorizontal: 15}} name="gender-male" size={25} color={SYMBOL_COLOR} />
                                 <Text style = {{color : TEXT_COLOR}}>Male</Text>
                             </View>
                                 : null}
-                        {state.userInfo[0].gender === 'Female' ?
+                        {state.userInfo[0].gender === 'Female' && state.userInfo[0].userType != 'Chemist' ?
                             <View style = {{flexDirection: 'row', alignItems: 'center', flex: 1}}>
                                 <MaterialCommunityIcons style = {{marginHorizontal: 15}} name="gender-female" size={25} color={SYMBOL_COLOR} />
                                 <Text style = {{color : TEXT_COLOR}}>Female</Text>
@@ -148,6 +162,36 @@ const PatientProfile = props => {
                       </View>
             )}
 
+            {state.userInfo && state.userInfo[0].userType === 'Chemist' && (
+                < View style = {{...localStyle.blocks, flexDirection: 'row'}}>
+                    <View style = {{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                        <Entypo style = {{marginHorizontal: 15}} name="location-pin" size={25} color={SYMBOL_COLOR} />
+                        <Text style = {{color: TEXT_COLOR}}>{state.userInfo[0].address}</Text>
+                    </View>
+                </View>)}
+
+            {state.userInfo && state.userInfo[0].userType === 'Chemist' && (
+                <View>
+                <Separator />
+                < View style = {{...localStyle.blocks, flexDirection: 'row'}}>
+                    <View style = {{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                        <Text style = {{marginLeft: 15, color: SYMBOL_COLOR}}>Shop Name: </Text>
+                        <Text style = {{color: TEXT_COLOR}}>{state.userInfo[0].shopName}</Text>
+                    </View>
+                </View>
+                </View>)}
+                
+
+            {state.userInfo && state.userInfo[0].userType === 'Chemist' && (
+                <View>
+                <Separator/>
+                <Text style = {{...Style.heading, marginHorizontal: 15}}> List Of Medicines </Text>
+                <View style = {{...localStyle.blocks, flexDirection: 'row'}}>
+                    <View style = {{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                        {showMedicines(state.userInfo[0].medicineList)}
+                    </View>
+                </View>
+                </View>)}
 
             {state.userInfo && state.userInfo[0].userType === 'Doctor' && (
                 < View style = {{...localStyle.blocks, flexDirection: 'row'}}>

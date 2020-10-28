@@ -17,7 +17,7 @@ const SearchBar = props => {
                 value = {props.query}
                 onChangeText = {(value) => props.onChangeQuery(value)}
                 autoCorrect = {false}
-                placeholder = 'Search'
+                placeholder = {props.text}
             />
             <View style = {{backgroundColor: 'rgb(38, 41, 43)', paddingVertical: 8}}>
                 <TouchableOpacity onPress = {() => {props.onSearchPress()

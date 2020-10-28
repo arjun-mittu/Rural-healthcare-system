@@ -69,7 +69,7 @@ const updateDoctorData = dispatch => {
         try{
             await userDataApi.post('/updateDoctor', data, {
                 headers: { 'Authorization': `Bearer ${token}`, 'content-type': 'application/json'},
-            })
+            });
             navigate('PatientProfile');
         }catch(err){
             dispatch({type: 'add_error', payload: 'Something went wrong in Update'});
@@ -122,7 +122,7 @@ const clearErrorMessage = dispatch => {
 
 const postUserInfo = (dispatch) => {
      return async ({firstName, lastName, age, phone, address, gender, bloodGroup, diabitic, highBloodPressure, sugar, currentUnderDiagnosis, userType, appointmentFees,
-                       specialisation}, changeRegistrationStatus) =>{
+                       specialisation, medicineList, shopName}, changeRegistrationStatus) =>{
         const token = await AsyncStorage.getItem('token');
         const data = JSON.stringify({
             firstName: firstName,
@@ -134,11 +134,13 @@ const postUserInfo = (dispatch) => {
             diabitic: diabitic,
             highBloodPressure: highBloodPressure,
             sugar,
+            medicineList,
             currentUnderDiagnosis: currentUnderDiagnosis,
             phoneNumber: phone,
             userType: userType,
             fees: appointmentFees,
-            specialisation: specialisation
+            specialisation: specialisation,
+            shopName
         })
         if(token){
             await userDataApi.post('/userdata', data, {
@@ -155,7 +157,9 @@ const postUserInfo = (dispatch) => {
 const signup = (dispatch) => {
     return async ({email, password}, changeTokenStatus) => {
         try{
+            console.log('Entered');
             const response = await userDataApi.post('/Signup', {email, password });
+            console.log("Won");
             await AsyncStorage.setItem('token', response.data.token);
             dispatch({type: 'signup', payload: response.data.token});
             changeTokenStatus(true);

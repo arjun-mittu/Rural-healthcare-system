@@ -20,7 +20,7 @@ const renderHospitals = (item, props) => {
     )
 }
 
-const header = () => {
+const header = (props) => {
     return <View style = {{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity onPress = {() => props.navigation.goBack(null)}>
                 <Ionicons style = {{marginLeft: 15}} name="ios-arrow-back" size={30} color='rgb(165, 165, 166)'/>
@@ -33,7 +33,7 @@ const HospitalScreen = props => {
     return(
         <View style = {Style.background}>
             <View style = {{marginTop: 45}}>
-            {header()}
+            {header(props)}
                 <Separator />
             <FlatList
                 data = {hospitalInfo}

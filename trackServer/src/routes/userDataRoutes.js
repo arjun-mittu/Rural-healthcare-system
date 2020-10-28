@@ -18,9 +18,7 @@ router.post('/getParticularInfo', async(req, res) => {
     console.log(req.body);
     const {id} = req.body;
     try{
-        console.log('Entered');
         const x = await UserData.find({_id: id});
-        console.log(x);
         res.send(x);
     }
     catch (err){
@@ -72,7 +70,6 @@ router.post('/updateDoctor', async (req, res) => {
                 if(err) return console.log("Error updating: " + err);
             }
         );
-        res.send('Done!!');
     }catch(err){
         res.status(422).send({error:err.message});
     }
@@ -139,7 +136,9 @@ router.post('/userdata', async (req, res) => {
             userType,
             sugar,
             fees,
-            specialisation
+            specialisation,
+            medicineList,
+            shopName
     } = req.body;
 
     if(!firstName || !lastName){
@@ -163,13 +162,14 @@ router.post('/userdata', async (req, res) => {
             sugar,
             fees,
             specialisation,
+            medicineList,
+            shopName,
             userId: req.user._id});
         await userData.save();
         res.send(userData);
     }catch(err){
         res.status(422).send({error:err.message});
     }
-
 })
 
 module.exports = router;

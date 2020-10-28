@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
-import SignupScreen from "./SignupScreen";
 import Style from "../Styles";
 import { Fontisto } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
@@ -33,7 +32,7 @@ const SignupIndex = props => {
             <Separator />
 
             <TouchableOpacity onPress = {() => {
-                props.navigation.navigate('Signup');
+                props.navigation.navigate('ChemistSignup');
             }}>
             <View style = {{...Style.bigImageButton, padding: 15, alignItems: 'center'}}>
                 <AntDesign style = {{paddingTop: 25}} name="medicinebox" size={50} color={SYMBOL_COLOR} />

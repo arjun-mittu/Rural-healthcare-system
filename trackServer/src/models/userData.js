@@ -43,13 +43,9 @@ const userDataSchema = new mongoose.Schema({
         type: 'String',
         default: 'No'
     },
-    clinicAddress: {
-        type: 'String',
-        default: 'Earth'
-    },
     specialisation: {
         type: 'String',
-        default: 'Bugging ppl'
+        default: ''
     },
     fees: {
         type: 'String',
@@ -58,6 +54,14 @@ const userDataSchema = new mongoose.Schema({
     userType: {
         type: 'String',
         default: 'Patient'
+    },
+    medicineList: {
+        type: 'Array',
+        default: ['None']
+    },
+    shopName: {
+        type: 'String',
+        default: 'Name of Shop'
     }
 });
 

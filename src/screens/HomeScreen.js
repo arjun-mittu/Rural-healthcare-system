@@ -1,11 +1,9 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import Style from '../Styles';
-import { AntDesign } from '@expo/vector-icons';
 import {BottomNavigator} from "../components/BottomNavigator";
 
 const HomeScreen = props => {
-
     return (
             <View style={Style.background}>
             <StatusBar  barStyle="light-content" backgroundColor="transparent" translucent={true} />

@@ -4,10 +4,10 @@ import Style from '../Styles';
 import SearchBar from "../components/SearchBar";
 import useMedicineSearchContext from "../context/useMedicineSearchContext";
 import Separator from "../components/Separator";
-import {BotttomNavigatorWithoutBorder} from "../components/BottomNavigator";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import {Context as AuthContext} from "../context/AuthContext";
+import {Paragraph} from "react-native-paper";
 
 const MedicineScreen = props => {
     const [searchQuery, onChangeSearchQuery] = useState('');
@@ -26,23 +26,14 @@ const MedicineScreen = props => {
         return sentence;
     }
 
-    const redirectToSearchMedicineScreen = () => {
-        props.navigation.navigate('Medicine');
-    }
-
-    const redirectToSearchHospitalScreen = () => {
-        props.navigation.navigate('HospitalScreen');
-    }
-
-    const redirectToSearchDoctorScreen = () => {
-        props.navigation.navigate('FindDoctor');
-    }
-
     return(
         <View style = {Style.background}>
             <StatusBar  barStyle="light-content" backgroundColor="transparent" translucent={true} />
             <View style = {{marginTop: 45}}>
-                <SearchBar onPressBack = {() => props.navigation.goBack(null)} query = {searchQuery} onChangeQuery = {onChangeSearchQuery} onSearchPress = {() => executeFetchMedicine(searchQuery)} />
+                <Text style = {Style.heading}>Description</Text>
+                <Paragraph style = {{marginLeft: 15, color: 'white'}}>Here, you can get the Salt of the Medicines for the disease you have. Just type the disease you are looking for.</Paragraph>
+                <Separator />
+                <SearchBar text = 'Disease you have....' onPressBack = {() => props.navigation.goBack(null)} query = {searchQuery} onChangeQuery = {onChangeSearchQuery} onSearchPress = {() => executeFetchMedicine(searchQuery)} />
                 <Separator />
                 {medicineResult ? (
                     <View style = {{marginLeft: 15, marginBottom: 190}}><FlatList
@@ -55,14 +46,6 @@ const MedicineScreen = props => {
                     }}
                     /></View>) :
                 (<Fontisto name="pills" size={24} color="black" />)}
-            </View>
-            <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0 }}>
-                <View style = {{flexDirection: 'row'}}>
-                    <BotttomNavigatorWithoutBorder callBack = {signout} symbolName = 'logout' text = "Logout" />
-                    <BotttomNavigatorWithoutBorder callBack = {redirectToSearchMedicineScreen} symbolName = 'search1' text = "Medicine" />
-                    <BotttomNavigatorWithoutBorder callBack = {redirectToSearchDoctorScreen} symbolName = 'search1' text = "Doctor" />
-                    <BotttomNavigatorWithoutBorder callBack = {redirectToSearchHospitalScreen} symbolName = 'search1' text = "Hospital" />
-                </View>
             </View>
         </View>
     )

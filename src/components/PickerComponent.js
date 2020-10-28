@@ -11,12 +11,13 @@ const renderPicker = (item) =>{
 };
 
 const PickerComponent = props => {
+    const width = props.width ? props.width : 125;
     return (
         <View style = {{margin: 15}}>
         <Text style = {{color: 'rgb(3, 184, 234)'}}>{props.title}</Text>
         <Picker
             selectedValue={props.value}
-            style={{ height: 50, width: 125, color: 'rgb(3, 184, 234)'}}
+            style={{ height: 50, width, color: 'rgb(3, 184, 234)'}}
             onValueChange={(itemValue, itemIndex) => props.setValue(itemValue)}
         >
             {renderPicker(props.item)}

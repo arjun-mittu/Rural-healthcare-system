@@ -21,13 +21,10 @@ const reducer = (state, action) => {
 }
 
 const EditDoctorProfile = props => {
-    const {state, updateDoctorData, getUserInfo} = useContext(AuthContext);
+    const {updateDoctorData} = useContext(AuthContext);
     const [fields, dispatch] = useReducer(reducer, {firstName: '', lastName: '', age: '', phone: '', address: '', gender: 'Male', appointmentFees: '', specialisation: ''});
     const {firstName, lastName, age, phone, address, gender, appointmentFees,specialisation} = fields;
-
-    useEffect(() => {
-        getUserInfo();
-    }, [])
+    const state = props.navigation.state.params.state;
 
     return(
         <View style = {{...Style.background, paddingTop: 45}}>

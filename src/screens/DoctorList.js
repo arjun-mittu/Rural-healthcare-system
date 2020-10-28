@@ -1,10 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {StatusBar, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {StatusBar, Text, View, FlatList, TouchableOpacity, AsyncStorage} from 'react-native';
 import Style from "../Styles";
 import { Paragraph } from 'react-native-paper';
 import Separator from "../components/Separator";
 import {Context as AuthContext} from '../context/AuthContext';
 import ReadOnlyProfile from "./ReadOnlyProfile";
+import userDataApi from "../api/userDataApi";
 
 const textColor = 'rgb(165, 165, 166)';
 const info = data => {
@@ -35,19 +36,34 @@ const showInfo = doctorType => {
 
 const DoctorList = props => {
     const doctorType = props.navigation.state.params.doctorType;
-    const {state, getAllInfo} = useContext(AuthContext);
     const [doctorList, changeDoctorList] = useState([]);
     const [render, reRender] = useState(0);
+    const[state, changeState] = useState([]);
 
     const getDoctorList = () => {
         const tempArr = []
-        state.allInfo.forEach(info => {
+        state.forEach(info => {
             if(info.specialisation == doctorType){
                 tempArr.push(info);
             }
         })
         changeDoctorList(tempArr);
         reRender(2);
+    }
+
+    const getAllInfo = async () => {
+        const token = await AsyncStorage.getItem('token');
+        try{
+            const data = await userDataApi.get('/getAllInfo', {
+                headers: { 'Authorization': `Bearer ${token}`, 'content-type': 'application/json'},
+            })
+            if(data){
+                changeState(data.data);
+            }
+            reRender(1);
+        }catch (err){
+            changeState(['Something Went Wrong']);
+        }
     }
 
     const showDoctor = (item,props) => {
@@ -60,7 +76,7 @@ const DoctorList = props => {
         )
     }
 
-    render == 0 && getAllInfo((val) => reRender(val));
+    render == 0 && getAllInfo();
     render == 1 && getDoctorList();
 
     return(
