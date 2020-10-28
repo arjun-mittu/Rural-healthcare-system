@@ -3,7 +3,6 @@ import {StatusBar, Text, View, FlatList, TouchableOpacity, AsyncStorage} from 'r
 import Style from "../Styles";
 import { Paragraph } from 'react-native-paper';
 import Separator from "../components/Separator";
-import {Context as AuthContext} from '../context/AuthContext';
 import ReadOnlyProfile from "./ReadOnlyProfile";
 import userDataApi from "../api/userDataApi";
 

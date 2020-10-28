@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import Style from "../Styles";
 import Separator from "../components/Separator";
 
