@@ -6,6 +6,7 @@ import {Context as AuthContext} from '../context/AuthContext';
 import InputTextBox from "../components/InputTextBox";
 import PickerComponent from "../components/PickerComponent";
 import Separator from "../components/Separator";
+import cities from "../../Cities";
 
 const reducer = (state, action) => {
     switch(action.type){
@@ -45,9 +46,13 @@ const DoctorSignup = props => {
                 <InputTextBox data = 'Last Name' value = {lastName} stateChange ={newValue => dispatch({type: 'lastName', payload: newValue})} />
                 <InputTextBox data = 'Age' value = {age} stateChange ={newValue => dispatch({type: 'age', payload: newValue})} />
                 <InputTextBox data = 'Phone Number' value = {phone} stateChange ={newValue => dispatch({type: 'phone', payload: newValue})} />
-                <InputTextBox data = 'Address' value = {address} stateChange ={newValue => dispatch({type: 'address', payload: newValue})} />
                 <InputTextBox data = 'appointmentFees' value = {appointmentFees} stateChange ={newValue => dispatch({type: 'appointmentFees', payload: newValue})} />
                 <View style = {localStyle.blocks}>
+                    <View style = {{flexDirection: 'row'}}>
+                        <PickerComponent width = {231} style = {{flex: 1}}
+                                         title = 'City' value = {address} setValue = {val => dispatch({type: 'address', payload: val})}
+                                         item ={cities} />
+                    </View>
                     <View style = {{flexDirection: 'row'}}>
                         <PickerComponent width = {231}
                             style = {{flex: 1}}

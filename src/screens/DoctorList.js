@@ -5,6 +5,7 @@ import { Paragraph } from 'react-native-paper';
 import Separator from "../components/Separator";
 import ReadOnlyProfile from "./ReadOnlyProfile";
 import userDataApi from "../api/userDataApi";
+import { AntDesign } from '@expo/vector-icons';
 
 const textColor = 'rgb(165, 165, 166)';
 const info = data => {
@@ -37,7 +38,8 @@ const DoctorList = props => {
     const doctorType = props.navigation.state.params.doctorType;
     const [doctorList, changeDoctorList] = useState([]);
     const [render, reRender] = useState(0);
-    const[state, changeState] = useState([]);
+    const [state, changeState] = useState([]);
+    const [city, filterCity] = useState('');
 
     const getDoctorList = () => {
         const tempArr = []
@@ -48,6 +50,19 @@ const DoctorList = props => {
         })
         changeDoctorList(tempArr);
         reRender(2);
+    }
+
+    if(city.length > 0){
+        console.log('city');
+        changeDoctorList([]);
+        const tempArr = []
+        state.forEach(info => {
+            if(info.specialisation == doctorType && info.address == city){
+                tempArr.push(info);
+            }
+        })
+        changeDoctorList(tempArr);
+        filterCity('');
     }
 
     const getAllInfo = async () => {
@@ -82,9 +97,17 @@ const DoctorList = props => {
         <View style ={Style.background}>
             <StatusBar  barStyle="light-content" backgroundColor="transparent" translucent={true} />
             <View style = {{marginTop: 45, marginHorizontal: 15}}>
-                <Text style = {Style.subHeading}>{doctorType}</Text>
+                <View style = {{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style = {{...Style.subHeading, flex: 1}}>{doctorType}</Text>
+                    <TouchableOpacity onPress = {() => {
+                        props.navigation.navigate('FilterCity', {'filterCity': (val) => filterCity(val)})
+                    }}>
+                        <AntDesign name="filter" size={24} color='rgb(3, 184, 234)' />
+                    </TouchableOpacity>
+                </View>
                 {showInfo(doctorType)}
                 <Separator />
+
                 <Text style = {Style.subHeading}>List Of Doctors</Text>
                 <Separator />
                 {doctorList &&

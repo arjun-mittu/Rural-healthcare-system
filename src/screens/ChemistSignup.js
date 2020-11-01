@@ -7,6 +7,7 @@ import InputTextBox from "../components/InputTextBox";
 import PickerComponent from "../components/PickerComponent";
 import Separator from "../components/Separator";
 import MedicineList from "../context/MedicineList";
+import cities from "../../Cities";
 
 const textColor = 'rgb(165, 165, 166)';
 const reducer = (state, action) => {
@@ -59,10 +60,12 @@ const ChemistSignup = props => {
                 <InputTextBox data = 'First Name' value = {firstName} stateChange ={newValue => dispatch({type: 'firstName', payload: newValue})} />
                 <InputTextBox data = 'Last Name' value = {lastName} stateChange ={newValue => dispatch({type: 'lastName', payload: newValue})} />
                 <InputTextBox data = 'Phone Number' value = {phone} stateChange ={newValue => dispatch({type: 'phone', payload: newValue})} />
-                <InputTextBox data = 'Address' value = {address} stateChange ={newValue => dispatch({type: 'address', payload: newValue})} />
                 <InputTextBox data = 'Shop Name' value = {shopName} stateChange ={newValue => dispatch({type: 'shopName', payload: newValue})} />
 
                 <View style = {localStyle.blocks}>
+                    <PickerComponent width ={300} style = {{flex: 1}}
+                                     title = 'City' value = {address} setValue = {val => dispatch({type: 'address', payload: val})}
+                                     item ={cities} />
                     <View style = {{justifyContent: 'center', alignItems: 'center'}}>
                         <PickerComponent width ={300} value = {medicineList[medicineList.length - 1]} title = 'Choose medicines'
                                          setValue = {val => changeMedicineList([...medicineList, val])} item ={MedicineList} />

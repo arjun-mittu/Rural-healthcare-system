@@ -6,6 +6,7 @@ import {Context as AuthContext} from '../context/AuthContext';
 import InputTextBox from "../components/InputTextBox";
 import PickerComponent from "../components/PickerComponent";
 import Separator from "../components/Separator";
+import cities from "../../Cities";
 
 const reducer = (state, action) => {
     switch(action.type){
@@ -52,7 +53,6 @@ const SignupScreen = props => {
             <InputTextBox data = 'Last Name' value = {lastName} stateChange ={newValue => dispatch({type: 'lastName', payload: newValue})} />
             <InputTextBox data = 'Age' value = {age} stateChange ={newValue => dispatch({type: 'age', payload: newValue})} />
             <InputTextBox data = 'Phone Number' value = {phone} stateChange ={newValue => dispatch({type: 'phone', payload: newValue})} />
-            <InputTextBox data = 'Address' value = {address} stateChange ={newValue => dispatch({type: 'address', payload: newValue})} />
 
             <View style = {localStyle.blocks}>
                 <View style = {{flexDirection: 'row'}}>
@@ -64,8 +64,11 @@ const SignupScreen = props => {
                     <PickerComponent style = {{flex: 1}} title = 'Diabitic?' value = {diabitic} setValue = {val => dispatch({type: 'diabitic', payload: val})} item ={['Yes', 'No']} />
                     <PickerComponent style = {{flex: 1}} title = 'High Blood Pressure?' value = {highBloodPressure} setValue = {val => dispatch({type: 'highBloodPressure', payload: val})} item ={['Yes', 'No']} />
                 </View>
-                <View>
+                <View style = {{flexDirection: 'row'}}>
                     <PickerComponent value = {sugar} title = 'Sugar?' setValue = {val => dispatch({type: 'sugar', payload: val})} item ={['Yes', 'No']} />
+                    <PickerComponent style = {{flex: 1}}
+                                         title = 'City' value = {address} setValue = {val => dispatch({type: 'address', payload: val})}
+                                         item ={cities} />
                 </View>
                 <View style = {{justifyContent: 'center', alignItems: 'center'}}>
                     <PickerComponent value = {currentUnderDiagnosis} title = 'Are You Currently Under Some Diagnosis by some other Doctor?' setValue = {val => dispatch({type: 'currentUnderDiagnosis', payload: val})} item ={['Yes', 'No']} />

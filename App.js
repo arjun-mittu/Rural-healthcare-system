@@ -22,8 +22,10 @@ import ChemistSignup from "./src/screens/ChemistSignup";
 import MedicineIndex from "./src/screens/MedicineIndex";
 import MedicalStores from "./src/screens/MedicalStores";
 import IndexScreen from "./src/screens/IndexScreen";
+import FilterCity from "./src/screens/FilterCity";
 
 const navigator = createStackNavigator({
+    FilterCity,
     IndexScreen,
     MedicalStores,
     MedicineIndex,
