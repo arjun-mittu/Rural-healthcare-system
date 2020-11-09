@@ -6,6 +6,7 @@ const InputTextBox = props => {
     return(
         <TextInput
             style = {Style.textInput}
+            secureTextEntry = {props.secure == true ? true : false}
             autoCapitalize = "none"
             value = {props.value}
             onChangeText = {(value) => props.stateChange(value)}

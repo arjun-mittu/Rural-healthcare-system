@@ -53,7 +53,7 @@ const PatientProfile = props => {
                     <View style = {{flexDirection: 'row'}}>
                         <View style = {{flex: 1}} />
                         {state.userInfo[0].userType === 'Patient' && (
-                        <TouchableOpacity onPress={() => props.navigation.navigate('EditPatientProfile', {state})}>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('EditPatientProfileScreen', {state})}>
                             <Entypo name="edit" size={25} color={SYMBOL_COLOR}/>
                         </TouchableOpacity>)}
 

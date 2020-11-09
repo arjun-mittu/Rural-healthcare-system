@@ -28,7 +28,7 @@ const LoginScreen = props => {
             name="user" size={75} color='rgb(3, 184, 234)' />
 
             <InputTextBox data = 'Email' value = {email} stateChange ={newValue => changeEmail(newValue)} />
-            <InputTextBox data = 'Password' value = {password} stateChange ={newValue => changePassword(newValue)} />
+            <InputTextBox secure={true} data = 'Password' value = {password} stateChange ={newValue => changePassword(newValue)} />
             {state.errorMessage ? (<Text style = {{color: 'red', textAlign: 'center', marginBottom: 10}}>{state.errorMessage}</Text>): null}
             <TouchableOpacity onPress = {() => signin({email, password})}>
                 <Text style = {Style.buttonStyle}> Login </Text>

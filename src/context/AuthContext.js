@@ -22,6 +22,7 @@ const getParticularInfo = dispatch => {
     return async (id) => {
         const dataId = JSON.stringify({id});
         const token = await AsyncStorage.getItem('token');
+
         try{
             const data = await userDataApi.post('/getParticularInfo', dataId, {
                 headers: { 'Authorization': `Bearer ${token}`, 'content-type': 'application/json'},
