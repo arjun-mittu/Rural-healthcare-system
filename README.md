@@ -29,4 +29,4 @@ If it dosen't work, try same things with git bash
 
 12) In third Terminal type "cd trackserver" and then "npm run dev"
 
-13) Now a development server in your default browser will pop up, change it to Tunnel instead of LAN and scan the QR code, and app should be working fine
+13) Now a development server in your default browser will pop up, change it to Tunnel instead of LAN and scan the QR code, and app should be work fine
